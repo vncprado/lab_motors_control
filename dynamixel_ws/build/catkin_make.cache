@@ -1,0 +1,2 @@
+DynamixelSDK/ros/dynamixel_sdk:DynamixelSDK/ros/dynamixel_sdk_examples:dynamixel-workbench-msgs/dynamixel_workbench_msgs:dynamixel-workbench/dynamixel_workbench:dynamixel-workbench/dynamixel_workbench_controllers:dynamixel-workbench/dynamixel_workbench_operators:dynamixel-workbench/dynamixel_workbench_toolbox:tests
+-DCATKIN_DEVEL_PREFIX=/home/bioinlab/lab_dynamixel_contol/dynamixel_ws/devel -DCMAKE_INSTALL_PREFIX=/home/bioinlab/lab_dynamixel_contol/dynamixel_ws/install -G Unix Makefiles

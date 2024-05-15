@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/ros/almond_ws/install
+
+Name: almond
+Description: Description of almond
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
