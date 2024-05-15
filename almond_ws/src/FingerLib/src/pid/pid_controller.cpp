@@ -62,62 +62,55 @@ double PID_CONTROLLER::getIntConstrain(){
 	return _intROSConstrain	;
 }
 
-double PID_CONTROLLER::run(double targ, double curr)
-{
-	if (!_en)
-	{
-		return 0;
-	}
+double PID_CONTROLLER::run(double targ, double curr){
+    if (!_en){  //if not enable don't run
+        return 0;
+    }
+    
+    double output = 0;
+    double error = targ - curr;
+    double sampleTime = (_sampleTimer.stop() / 1000);		// sampleTime in ms
+    
+    if (sampleTime>0){ //Not really sure if it's necessary
 
-	double output = 0;
-	double error = targ - curr;
-	double sampleTime = (_sampleTimer.stop() / 1000);		// sampleTime in ms
-	// double deltaTime = millis() - _prevTime;
-	// _prevTime = millis();	
-	
-	if (sampleTime>0)
-	{
-		// integral summation allows _Ki to change without causing unwanted disturbances 
-		if(error>targ*0.33 || error < -targ * 0.33){
-			_integral=0;
-		}else{
-			_integral +=  error * (sampleTime/1000);
-			_integral = constrain(_integral, _min, _max);
-		}
-		_intROS=_integral;
-		// store the change in input to remove the derivative spike
-		double _dInput = ((error - _prev) / (sampleTime/1000));
-		_intROSConstrain=_dInput;
-		// _dInput = ((error - _prev) / (sampleTime)/1000);
+        //Anti-windup for the integral factor
+        if(error>targ*0.33 || error < -targ * 0.33){
+            _integral=0;
+        }else{
+            _integral +=  error * (sampleTime/1000);    //time in seconds
+            _integral = constrain(_integral, _min, _max);
+        }
+        // store the change in input to remove the derivative spike
+        double _dInput = ((error - _prev) / (sampleTime/1000)); //time in seconds
 
-		// calculate and constrain output
-		output = (_Kp * error) + (_Ki * _integral) + (_Kd * _dInput);
-		output = constrain(output, _min, _max);
+        // calculate and constrain output
+        output = (_Kp * error) + (_Ki * _integral) + (_Kd * _dInput);
+        output = constrain(output, _min, _max);
 
-		// if a rate limit is set
-		if (_rampLim != 0){
-			double change = (output - _prevOutput);
+        // if a rate limit is set
+        if (_rampLim != 0){
+            double change = (output - _prevOutput);
 
-			// if the change in outputs exceeds the rate limit
-			if (change > _rampLim)
-			{
-				output = _prevOutput + _rampLim;		// just change by the ramp rate
-			}
-			else if (change < -_rampLim)
-			{
-				output = _prevOutput - _rampLim;		// just change by the ramp rate
-			}
-		}
+            // if the change in outputs exceeds the rate limit
+            if (change > _rampLim)
+            {
+                output = _prevOutput + _rampLim;		// just change by the ramp rate
+            }
+            else if (change < -_rampLim)
+            {
+                output = _prevOutput - _rampLim;		// just change by the ramp rate
+            }
+        }
 
-		// store history
-		_prev = error;			// previous pos/vel
-		_prevOutput = output;	// store the previous output
-	}
+        // store history
+        _prev = error;			// previous pos/vel
+        _prevOutput = output;	// store the previous output
+    }
 
-	// restart the sample timer
-	_sampleTimer.start();
+    // restart the sample timer
+    _sampleTimer.start();
 
-	return output;
+    return output;
 }
 
 // set the output value limits
