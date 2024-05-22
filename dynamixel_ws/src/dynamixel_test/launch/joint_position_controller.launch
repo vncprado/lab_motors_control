@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<launch>
+  <!-- <arg name="sim" default="true"/> -->
+  <arg name="usb_port" default="/dev/ttyUSB0" />
+
+  <!-- startup ros_control for real robot -->
+  <!-- <group unless="$(arg sim)"> -->
+    <include file="$(find dynamixel_test)/launch/open_manipulator_control.launch">
+      <arg name="usb_port" value="$(arg usb_port)"/>
+    </include>
+  <!-- </group> -->
+
+  <!-- startup simulated world and spawn robot-->
+  <!-- <group if="$(arg sim)"> -->
+    <!-- <include file="$(find open_manipulator_hw)/launch/open_manipulator_gazebo.launch"/> -->
+  <!-- </group> -->
+
+  <!-- controller utils -->
+  <include file="$(find dynamixel_test)/launch/controller_utils.launch"/>
+  
+  <!-- <rosparam file="$(find open_manipulator_gazebo)/config/gazebo_controller.yaml" command="load" /> -->
+
+  <!-- joint_position_controller -->
+  <!-- <group unless="$(arg sim)"> -->
+    <!-- <rosparam file="$(find open_manipulator_controllers)/config/joint_position_controller.yaml" command="load"/> -->
+    <rosparam file="$(find dynamixel_test)/config/joint_position_controller.yaml" command="load"/>
+  <!-- </group> -->
+  <!-- <group if="$(arg sim)"> -->
+    <!-- <rosparam file="$(find open_manipulator_controllers)/config/joint_trajectory_controller_gazebo.yaml" command="load"/> -->
+  <!-- </group> -->
+  <!-- <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="spawn arm_controller"/>
+  <node name="gripper_controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="spawn gripper_controller"/> -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen"
+    args="joint1_position_controller 
+          joint2_position_controller
+          joint3_position_controller
+          joint4_position_controller"/>
+
+  <!-- startup move_group related -->
+  <!-- <include file="$(find open_manipulator_moveit_config)/launch/move_group.launch"/>
+  <include file="$(find open_manipulator_moveit_config)/launch/moveit_rviz.launch"/> -->
+</launch>

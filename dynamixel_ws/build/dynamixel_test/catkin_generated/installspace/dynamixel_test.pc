@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/lab_dynamixel_contol/dynamixel_ws/install
+
+Name: dynamixel_test
+Description: Description of dynamixel_test
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lopen_manipulator
+Requires: roscpp controller_manager dynamixel_workbench_toolbox hardware_interface
