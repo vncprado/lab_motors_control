@@ -1,2 +1,0 @@
-dynamixel_controllers:dynamixel_driver:dynamixel_motor:dynamixel_msgs:dynamixel_tutorials:panTilt
--DCATKIN_DEVEL_PREFIX=/home/bioinlab/lab_dynamixel_contol/newDynamixel_ws/devel -DCMAKE_INSTALL_PREFIX=/home/bioinlab/lab_dynamixel_contol/newDynamixel_ws/install -G Unix Makefiles

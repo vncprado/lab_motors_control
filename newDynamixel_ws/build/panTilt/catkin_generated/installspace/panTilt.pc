@@ -1,8 +1,0 @@
-prefix=/home/bioinlab/lab_dynamixel_contol/newDynamixel_ws/install
-
-Name: panTilt
-Description: Description of panTilt
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
