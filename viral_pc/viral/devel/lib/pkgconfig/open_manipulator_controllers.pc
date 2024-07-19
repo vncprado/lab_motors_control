@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/viral_pc/viral/devel
+
+Name: open_manipulator_controllers
+Description: Description of open_manipulator_controllers
+Version: 2.0.1
+Cflags: -I/home/bioinlab/viral_pc/viral/src/open_manipulator_controls/open_manipulator_controllers/include
+Libs: -L${prefix}/lib -lopen_manipulator_controllers
+Requires: controller_interface kdl_parser pluginlib roscpp urdf

@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/viral_pc/viral/devel
+
+Name: bioin_tacto
+Description: Description of bioin_tacto
+Version: 0.0.0
+Cflags: -I/home/bioinlab/viral_pc/viral/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

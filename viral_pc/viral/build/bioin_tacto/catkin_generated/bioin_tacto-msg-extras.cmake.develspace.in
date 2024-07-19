@@ -1,0 +1,2 @@
+set(bioin_tacto_MESSAGE_FILES "/home/bioinlab/viral_pc/viral/src/bioin_tacto/msg/raw_barometer_serial.msg;/home/bioinlab/viral_pc/viral/src/bioin_tacto/msg/raw_imu_serial.msg;/home/bioinlab/viral_pc/viral/src/bioin_tacto/msg/raw_barometer.msg;/home/bioinlab/viral_pc/viral/src/bioin_tacto/msg/raw_imu.msg")
+set(bioin_tacto_SERVICE_FILES "/home/bioinlab/viral_pc/viral/src/bioin_tacto/srv/bias_srv.srv")

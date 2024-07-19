@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/viral_pc/viral/install
+
+Name: OMX_teleop
+Description: Description of OMX_teleop
+Version: 0.0.0
+Cflags: -I${prefix}/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib 
+Requires: moveit_core moveit_visual_tools moveit_ros_planning_interface message_runtime

@@ -1,0 +1,16 @@
+<launch>
+ <arg name="bag_name" default=""/>		
+ <node pkg="rosbag" type="record" name="rosbag_record_cam"
+       args="record -o /home/bioinlab/Documents/real-OMX-bioin-tacto-grasp-and-lift/bags/cameras$(arg bag_name) 
+	/camera/rgb/image_color/compressed 
+       /camera/rgb/image_rect_color/compressed 
+     	/camera/depth_registered/hw_registered/image_rect_raw/compressedDepth
+       "
+       />
+</launch>
+      <!-- 
+       /camera/depth_registered/hw_registered/image_rect_raw/compressedDepth
+      	/camera/depth_registered/image_raw 
+	/camera/depth_registered/points 
+     	/tf_static
+     		-->

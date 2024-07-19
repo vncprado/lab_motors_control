@@ -1,0 +1,143 @@
+<launch>
+  <arg name="use_platform" default="true"/>
+  <arg name="usb_port" default="/dev/arm"/>
+    <arg name="record_bags" default="false"/>
+ <arg name="bag_name" default=""/>
+ 	
+ 	
+
+  <group if="$(arg record_bags)">
+    <include file="$(find OMX_teleop)/launch/robot_bag.launch">
+	<arg name="bag_name" value="$(arg bag_name)"/>
+    </include>
+  </group>
+
+  <group if="$(arg record_bags)">
+    <include file="$(find OMX_teleop)/launch/camera_bag.launch">
+    	<arg name="bag_name" value="$(arg bag_name)"/>
+    </include>
+    
+    <arg name="device_id" default="#1" />
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <arg name="device_id"             value="$(arg device_id)" />
+    <arg name="depth_registration"             value="true" />
+  </include>	
+ 		
+  </group>
+
+ <include file="$(find OMX_teleop)/launch/teleop.launch"> 
+    <arg name="use_platform" value="$(arg use_platform)"/>
+    <arg name="usb_port" value="$(arg usb_port)"/>
+  </include>
+
+<!-- Sensor 1 -->
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server1">
+      <param name="port" value="/dev/teensy1" />
+      <remap from="/raw_imus_teensy" to="/raw_imu_teensy1"/>
+      <remap from="/raw_barometers_teensy" to="/raw_barometers_teensy1"/>
+  </node>
+
+  <node pkg="bioin_tacto" type="middle_imus" name="middle_imus1">
+     <remap from="/m_imus_serial" to="/m_imus_serial1"/>
+     <remap from="/raw_imus_teensy" to="/raw_imu_teensy1"/>
+  </node>
+
+  <node pkg="bioin_tacto" type="middle_bias_imus" name="middle_bias_imus1">
+    <remap from="/m_imus_serial" to="/m_imus_serial1"/>	
+    <remap from="/bias_imu_srv" to="/bias_imu_srv1"/>	
+  </node> 
+
+  <node pkg="bioin_tacto" type="middle_imu_bias_removed" name="middle_imu_bias_removed1">
+    <remap from="/m_imus_serial" to="/m_imus_serial1"/>	
+    <remap from="/m_imus_bias_removed" to="/m_imus_bias_removed1"/>
+    <remap from="/bias_imu_srv" to="/bias_imu_srv1"/>	
+    <remap from="/imu/data_raw" to="/imu1/data_raw"/>
+    <remap from="/imu/mag" to="/imu1/mag"/>
+  </node>
+
+
+    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node1">
+    <param name="fixed_frame" value="/world" />
+    	<param name="use_mag" value="false" />
+    	<param name="publish_tf" value="true" /> 
+   	<remap from="/imu/data_raw" to="/imu1/data_raw"/>
+   	<remap from="/imu/mag" to="/imu1/mag"/>
+    	<remap from="/imu/data" to="/imu/data1"/>
+   	<remap from="/imus_frames" to="/imu_frame_right"/>
+    </node>
+
+	<node pkg="bioin_tacto" type="middle_baros" name="middle_baros1">
+        <remap from="/raw_barometers_teensy" to="/raw_barometers_teensy1"/>
+        <remap from="/m_baros_serial" to="/m_baros_serial1"/>
+    </node>
+
+    <node pkg="bioin_tacto" type="pressure_viz" name="pressure_viz_left" args="pressure_left">
+	    <!--param name="/frame_id_pressure" type="str" value="pressure_left" /-->
+          <remap from="/pressure_viz" to="/pressure_viz_left"/>
+          <remap from="/m_baros_serial" to="/m_baros_serial2"/>
+    </node>
+ 
+
+<!-- Sensor 2 -->
+
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server2">
+      <param name="port" value="/dev/teensy2" />
+      <remap from="/raw_imus_teensy" to="/raw_imu_teensy2"/>
+      <remap from="/raw_barometers_teensy" to="/raw_barometers_teensy2"/>
+  </node>
+
+  <node pkg="bioin_tacto" type="middle_imus" name="middle_imus2">
+     <remap from="/m_imus_serial" to="/m_imus_serial2"/>
+     <remap from="/raw_imus_teensy" to="/raw_imu_teensy2"/>
+  </node>
+
+  <node pkg="bioin_tacto" type="middle_bias_imus" name="middle_bias_imus2">
+    <remap from="/m_imus_serial" to="/m_imus_serial2"/>	
+    <remap from="/bias_imu_srv" to="/bias_imu_srv2"/>	
+  </node> 
+
+  <node pkg="bioin_tacto" type="middle_imu_bias_removed" name="middle_imu_bias_removed2">
+    <remap from="/m_imus_serial" to="/m_imus_serial2"/>	
+    <remap from="/m_imus_bias_removed" to="/m_imus_bias_removed2"/>
+    <remap from="/bias_imu_srv" to="/bias_imu_srv2"/>	
+    <remap from="/imu/data_raw" to="/imu2/data_raw"/>	
+    <remap from="/imu/mag" to="/imu2/mag"/>
+  </node>
+
+    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node2">
+	<param name="fixed_frame" value="/world" />
+    <param name="use_mag" value="false" />
+    <param name="publish_tf" value="true" />
+   	<remap from="/imu/data_raw" to="/imu2/data_raw"/>
+	<remap from="/imu/mag" to="/imu2/mag"/>
+   	<remap from="/imu/data" to="/imu/data2"/>
+   	<remap from="/imus_frames" to="/imu_frame_left"/>
+    </node>
+    
+    
+	<node pkg="bioin_tacto" type="middle_baros" name="middle_baros2">
+        <remap from="/raw_barometers_teensy" to="/raw_barometers_teensy2"/>
+        <remap from="/m_baros_serial" to="/m_baros_serial2"/>
+    </node>
+
+   <node pkg="bioin_tacto" type="pressure_viz" name="pressure_viz_right" args="pressure_right">
+	    <!--param name="/frame_id_pressure" type="str" value="pressure_right" /-->
+          <remap from="/pressure_viz" to="/pressure_viz_right"/>
+          <remap from="/m_baros_serial" to="/m_baros_serial1"/>
+    </node>
+
+	<node pkg="tf" type="static_transform_publisher" name="sensor_left_broadcaster1" args="0.06 -0.015 0 -0.5 0.5 0.5 0.5 gripper_link sensor_link_left 5"/>
+	<node pkg="tf" type="static_transform_publisher" name="sensor_right_broadcaster1" args="0.06 0.015 0 -0.5 0.5 -0.5 -0.5 gripper_link_sub sensor_link_right 5"/>
+
+	<node pkg="tf" type="static_transform_publisher" name="sensor_left_broadcaster" args="0 0 0 0 0 0 1 sensor_link_left pressure_left 5"/>
+	<node pkg="tf" type="static_transform_publisher" name="sensor_right_broadcaster" args="0 0 0 0 0 0 1 sensor_link_right pressure_right 5"/>
+
+
+     <node pkg="bioin_tacto" type="publish_sensor_transforms.py" name="publish_sensor_transforms"/>
+
+
+
+
+
+</launch>
+

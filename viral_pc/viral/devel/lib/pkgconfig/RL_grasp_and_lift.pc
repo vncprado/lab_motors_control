@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/viral_pc/viral/devel
+
+Name: RL_grasp_and_lift
+Description: Description of RL_grasp_and_lift
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

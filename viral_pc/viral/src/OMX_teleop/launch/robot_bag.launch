@@ -1,0 +1,25 @@
+<launch>
+ <arg name="bag_name" default=""/>		
+ <node pkg="rosbag" type="record" name="rosbag_record_robot"
+       args="record -o /home/bioinlab/Documents/real-OMX-bioin-tacto-grasp-and-lift/bags/robot$(arg bag_name) 
+	/tf
+	/tf_static
+	/m_baros_serial1
+	/m_baros_serial2
+	/pressure_viz_left
+	/pressure_viz_right
+	/raw_barometers_teensy1
+	/raw_barometers_teensy2 
+	/raw_imu_teensy1
+	/raw_imu_teensy2
+	/imu/data1
+	/imu/data2
+	/imu1/data_raw
+	/imu1/mag
+	/imu2/data_raw
+	/imu2/mag
+	/joint_states
+	/robot_instruction"
+       />
+</launch>
+

@@ -1,0 +1,33 @@
+joint1_position:
+    type: effort_controllers/JointPositionController
+    joint: joint1
+    pid: {p: 4.6, i: 0.3, d:  0.45,i_clamp_min: -2, i_clamp_max: 2, antiwindup: true}
+
+# JOINT2
+    # ORIGINAL
+    # 0.78
+    # 0.4
+    # 0.0625
+    # TUNNED
+    # 4.0
+    # 0.3
+    # 0.55
+    # -1.25
+    # 1.25
+
+    # JOINT3
+    # ORIGININAL
+    # 1.2
+    # 0.05
+    # 0.0125
+    # TUNNED
+    # 1.2
+    # 0.4
+    # 0.5
+    # -1.0
+    # 1.0
+
+    joint4_position:
+    type: effort_controllers/JointPositionController
+    joint: joint4
+    pid: {p: 6.0, i: 2.5, d: 1.0,i_clamp_min: -2, i_clamp_max: 2, antiwindup: true}

@@ -1,0 +1,32 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/bioinlab/viral_pc/viral/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/bioinlab/viral_pc/viral/src/OMX_teleop/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator/open_manipulator_control_gui/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator/open_manipulator_controller/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator_controls/open_manipulator_controllers/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator_controls/open_manipulator_hw/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator/open_manipulator_libs/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator/open_manipulator_teleop/include/**",
+        "/home/bioinlab/viral_pc/viral/src/open_manipulator_dependencies/roboticsgroup_gazebo_plugins/include/**",
+        "/home/bioinlab/viral_pc/viral/src/rosserial/rosserial_server/include/**",
+        "/home/bioinlab/viral_pc/viral/src/rosserial/rosserial_test/include/**",
+        "/home/bioinlab/viral_pc/viral/src/tf2/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

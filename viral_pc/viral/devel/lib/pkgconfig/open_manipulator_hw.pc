@@ -1,0 +1,8 @@
+prefix=/home/bioinlab/viral_pc/viral/devel
+
+Name: open_manipulator_hw
+Description: Description of open_manipulator_hw
+Version: 2.0.1
+Cflags: -I/home/bioinlab/viral_pc/viral/src/open_manipulator_controls/open_manipulator_hw/include
+Libs: -L${prefix}/lib -lopen_manipulator
+Requires: roscpp controller_manager dynamixel_workbench_toolbox hardware_interface
